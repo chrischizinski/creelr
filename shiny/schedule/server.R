@@ -65,9 +65,14 @@ source("creel_schedule_functions-04-18-14.R")
 shinyServer(function(input, output, session) {
   
   datasetInput <- reactive({
-    holidayz<-as.character(c(input$specialdays1,input$specialdays2,input$specialdays3,input$specialdays4,input$specialdays5,input$specialdays6,input$specialdays7,input$specialdays8,input$specialdays9))
+    holidayz<-as.character(c(input$specialdays1,input$specialdays2,input$specialdays3,input$specialdays4,input$specialdays5,input$specialdays6,input$specialdays7,input$specialdays8,input$specialdays9,input$specialdays10,input$specialdays11))
     
-    holidayzgrp<-as.numeric(c(input$specialdaysgrp1,input$specialdaysgrp2,input$specialdaysgrp3,input$specialdaysgrp4,input$specialdaysgrp5,input$specialdaysgrp6,input$specialdaysgrp7,input$specialdaysgrp8,input$specialdaysgrp9))
+    holidayz<-holidayz[which(holidayz!="None")]
+    
+    
+    holidayzgrp<-as.numeric(c(input$specialdaysgrp1,input$specialdaysgrp2,input$specialdaysgrp3,input$specialdaysgrp4,input$specialdaysgrp5,input$specialdaysgrp6,input$specialdaysgrp7,input$specialdaysgrp8,input$specialdaysgrp9,input$specialdaysgrp10,input$specialdaysgrp11))
+    
+    holidayzgrp<-holidayzgrp[which(holidayzgrp!="None")]
     
     
     params<-list(start.date=input$dateRange[1],
@@ -86,9 +91,9 @@ shinyServer(function(input, output, session) {
                  holidays = holidayz,
                  holiday.grp=holidayzgrp,
                  sampling.times=data.frame(month=1:12,
-                                           start.period.1=c("08:30","08:00","07:00","07:00","06:30","06:00","06:00","06:30","07:00","08:00","07:30","08:00"),
-                                           start.period.2=c("13:00","13:00","13:00","13:30","13:30","13:30","13:30","13:30","13:30","13:00","12:00","12:30"),    
-                                           end=c("17:30","18:00","19:00","20:00","20:30","21:00","21:00","20:30","20:00","19:00","17:30","17:00")),
+                                           start.period.1=c("08:30","08:00","07:00","07:00","06:30","06:00","06:00","06:30","07:00","07:00","07:30","08:00"),
+                                           start.period.2=c("13:00","13:00","13:00","13:30","13:30","13:30","13:30","13:30","13:30","13:30","12:00","12:30"),    
+                                           end=c("17:30","18:00","19:00","20:00","20:30","21:00","21:00","20:30","20:00","19:00","19:00","17:00")),
                  seed=as.numeric(input$seed)
                  
     )
